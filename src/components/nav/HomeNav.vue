@@ -1,81 +1,20 @@
 <template>
   <div>
-    <div class="nav-item">
-      <ul>
-        <li v-for="(item, index) in nav" :key="index">
-          <a href="#">{{ item }}</a>
-        </li>
-      </ul>
-    </div>
     <div class="nav-body">
       <!-- 侧边导航 -->
       <div class="nav-side" ref="navSide">
         <ul>
           <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">家用电器</span>
+            <span class="nav-side-item">照片</span>
           </li>
           <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">手机</span> /
-            <span class="nav-side-item">运营商</span> /
-            <span class="nav-side-item">数码</span>
+            <span class="nav-side-item">视频</span>
           </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">电脑</span> /
-            <span class="nav-side-item">办公</span>
+          <li @mouseenter="showDetail(3)" @mouseleave="hideDetail(3)">
+            <span class="nav-side-item">音频</span>
           </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">家居</span> /
-            <span class="nav-side-item">家具</span> /
-            <span class="nav-side-item">家装</span> /
-            <span class="nav-side-item">厨具</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">男装</span> /
-            <span class="nav-side-item">女装</span> /
-            <span class="nav-side-item">童装</span> /
-            <span class="nav-side-item">内衣</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">美妆个护</span> /
-            <span class="nav-side-item">宠物</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">女鞋</span> /
-            <span class="nav-side-item">箱包</span> /
-            <span class="nav-side-item">钟表</span> /
-            <span class="nav-side-item">珠宝</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">男鞋</span> /
-            <span class="nav-side-item">运动</span> /
-            <span class="nav-side-item">户外</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">汽车</span> /
-            <span class="nav-side-item">汽车用品</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">母婴</span> /
-            <span class="nav-side-item">玩具乐器</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">食品</span> /
-            <span class="nav-side-item">酒类</span> /
-            <span class="nav-side-item">生鲜</span> /
-            <span class="nav-side-item">特产</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">礼品鲜花</span> /
-            <span class="nav-side-item">农资绿植</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">医药保健</span> /
-            <span class="nav-side-item">计生情趣</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">图书</span> /
-            <span class="nav-side-item">音像</span> /
-            <span class="nav-side-item">电子书</span>
+          <li @mouseenter="showDetail(4)" @mouseleave="hideDetail(4)">
+            <span class="nav-side-item">pdf</span>
           </li>
         </ul>
       </div>
@@ -106,6 +45,7 @@
         </div>
       </div>
     </div>
+    <!-- 详细导航栏照片 -->
     <transition name="fade">
       <div
         class="detail-item-panel panel-1"
@@ -141,6 +81,7 @@
         </ul>
       </div>
     </transition>
+    <!-- 详细导航栏视频 -->
     <transition name="fade">
       <div
         class="detail-item-panel panel-2"
@@ -176,6 +117,78 @@
         </ul>
       </div>
     </transition>
+    <!-- 详细导航栏音频 -->
+    <transition name="fade">
+      <div
+        class="detail-item-panel panel-3"
+        :duration="{ enter: 100, leave: 100 }"
+        v-show="panel3"
+        @mouseenter="showDetail(3)"
+        ref="itemPanel3"
+        @mouseleave="hideDetail(3)"
+      >
+        <div class="nav-detail-item">
+          <span v-for="(item, index) in panelData3.navTags" :key="index"
+            >{{ item }} >
+          </span>
+        </div>
+        <ul>
+          <li
+            v-for="(items, index) in panelData3.classNav"
+            :key="index"
+            class="detail-item-row"
+          >
+            <span class="detail-item-title"
+              >{{ items.title }}>
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link
+              to="/goodsList"
+              v-for="(item, subIndex) in items.tags"
+              :key="subIndex"
+            >
+              <span class="detail-item">{{ item }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </transition>
+    <!-- 详细导航栏pdf -->
+    <transition name="fade">
+      <div
+        class="detail-item-panel panel-4"
+        :duration="{ enter: 100, leave: 100 }"
+        v-show="panel4"
+        @mouseenter="showDetail(4)"
+        ref="itemPanel4"
+        @mouseleave="hideDetail(4)"
+      >
+        <div class="nav-detail-item">
+          <span v-for="(item, index) in panelData4.navTags" :key="index"
+            >{{ item }} >
+          </span>
+        </div>
+        <ul>
+          <li
+            v-for="(items, index) in panelData4.classNav"
+            :key="index"
+            class="detail-item-row"
+          >
+            <span class="detail-item-title"
+              >{{ items.title }}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link
+              to="/goodsList"
+              v-for="(item, subIndex) in items.tags"
+              :key="subIndex"
+            >
+              <span class="detail-item">{{ item }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -188,303 +201,41 @@ export default {
     return {
       panel1: false,
       panel2: false,
-      nav: [
-        "图片压缩",
-        "优惠券",
-        "闪购",
-        "拍卖",
-        "服装城",
-        "超市",
-        "生鲜",
-        "全球购",
-        "金融",
-      ],
+      panel3: false,
+      panel4: false,
       panelData1: {
-        navTags: [
-          "清洁用品",
-          "美妆商城",
-          "美妆馆",
-          "妆比社",
-          "全球购美妆",
-          "宠物馆",
-        ],
+        navTags: ["照片"],
         classNav: [
           {
             title: "图片",
-            tags: [
-              "图片压缩",
-              "图片转码",
-              "洁面",
-              "爽肤水",
-              "乳液面霜",
-              "精华",
-              "眼霜",
-              "防晒",
-              "面膜",
-              "剃须",
-              "套装",
-            ],
-          },
-          {
-            title: "洗发护发",
-            tags: ["洗发", "护发", "染发", "造型", "假发", "美发工具", "套装"],
-          },
-          {
-            title: "身体护理",
-            tags: [
-              "补水保湿",
-              "沐浴",
-              "润肤",
-              "精油",
-              "颈部",
-              "手足",
-              "纤体塑形",
-              "美胸",
-              "套装",
-            ],
-          },
-          {
-            title: "口腔护理",
-            tags: ["牙膏/牙粉", "牙刷/牙线", "漱口水", "套装"],
-          },
-          {
-            title: "女性护理",
-            tags: ["卫生巾", "卫生护垫", "私密护理", "脱毛膏"],
-          },
-          {
-            title: "香水彩妆",
-            tags: [
-              "BB霜",
-              "化妆棉",
-              "女士香水",
-              "男士香水",
-              "底妆",
-              "眉笔",
-              "睫毛膏",
-              "眼线",
-              "眼影",
-              "唇膏/彩",
-            ],
-          },
-          {
-            title: "清洁用品",
-            tags: [
-              "纸品湿巾",
-              "衣物清洁",
-              "清洁工具",
-              "家庭清洁",
-              "一次性用品",
-              "驱虫用品",
-              "皮具护理",
-            ],
-          },
-          {
-            title: "宠物生活",
-            tags: [
-              "水族世界",
-              "狗粮",
-              "猫粮",
-              "猫狗罐头",
-              "狗零食",
-              "猫零食",
-              "医疗保健",
-              "宠物玩具",
-              "宠物服饰",
-            ],
-          },
-          {
-            title: "香水彩妆",
-            tags: [
-              "BB霜",
-              "化妆棉",
-              "女士香水",
-              "男士香水",
-              "底妆",
-              "眉笔",
-              "睫毛膏",
-              "眼线",
-              "眼影",
-              "唇膏/彩",
-            ],
-          },
-          {
-            title: "清洁用品",
-            tags: [
-              "纸品湿巾",
-              "衣物清洁",
-              "清洁工具",
-              "家庭清洁",
-              "一次性用品",
-              "驱虫用品",
-              "皮具护理",
-            ],
-          },
-          {
-            title: "宠物生活",
-            tags: [
-              "水族世界",
-              "狗粮",
-              "猫粮",
-              "猫狗罐头",
-              "狗零食",
-              "猫零食",
-              "医疗保健",
-              "宠物玩具",
-              "宠物服饰",
-            ],
+            tags: ["图片压缩", "图片转码"],
           },
         ],
       },
       panelData2: {
-        navTags: ["赛事", "运动城", "户外馆", "健身房", "骑行馆", "钟表城"],
+        navTags: ["视频"],
         classNav: [
           {
-            title: "2017新品",
-            tags: [
-              "休闲鞋",
-              "商务休闲鞋",
-              "正装鞋",
-              "帆布鞋",
-              "凉鞋",
-              "拖鞋",
-              "功能鞋",
-              "增高鞋",
-              "工装鞋",
-              "雨鞋",
-            ],
+            title: "视频",
+            tags: ["视频压缩", "视频转码"],
           },
+        ],
+      },
+      panelData3: {
+        navTags: ["音频"],
+        classNav: [
           {
-            title: "运动鞋包",
-            tags: [
-              "跑步鞋",
-              "休闲鞋",
-              "篮球鞋",
-              "帆布鞋",
-              "板鞋",
-              "拖鞋",
-              "运动包",
-            ],
+            title: "音频",
+            tags: ["音频压缩", "音频转码"],
           },
+        ],
+      },
+      panelData4: {
+        navTags: ["pdf"],
+        classNav: [
           {
-            title: "健身训练",
-            tags: [
-              "跑步机",
-              "健身车/动感单车",
-              "椭圆机",
-              "综合训练器",
-              "划船机",
-              "甩脂机",
-              "倒立机",
-              "武术搏击",
-            ],
-          },
-          {
-            title: "骑行运动",
-            tags: [
-              "山地车",
-              "公路车",
-              "折叠车",
-              "骑行服",
-              "电动车",
-              "电动滑板车",
-              "城市自行车",
-              "平衡车",
-            ],
-          },
-          {
-            title: "体育用品",
-            tags: [
-              "乒乓球",
-              "羽毛球",
-              "篮球",
-              "足球",
-              "轮滑滑板",
-              "网球",
-              "高尔夫",
-              "台球",
-              "排球",
-            ],
-          },
-          {
-            title: "户外鞋服",
-            tags: [
-              "户外风衣",
-              "徒步鞋",
-              "T恤",
-              "冲锋衣裤",
-              "速干衣裤",
-              "越野跑鞋",
-              "滑雪服",
-              "羽绒服/棉服",
-              "休闲衣裤",
-            ],
-          },
-          {
-            title: "户外装备",
-            tags: [
-              "背包",
-              "帐篷/垫子",
-              "望远镜",
-              "烧烤用具",
-              "便携桌椅床",
-              "户外配饰",
-              "军迷用品",
-              "野餐用品",
-            ],
-          },
-          {
-            title: "垂钓用品",
-            tags: [
-              "钓竿",
-              "鱼线",
-              "浮漂",
-              "鱼饵",
-              "钓鱼配件",
-              "渔具包",
-              "钓箱钓椅",
-              "鱼线轮",
-              "钓鱼灯",
-            ],
-          },
-          {
-            title: "游泳用品",
-            tags: [
-              "女士泳衣",
-              "比基尼",
-              "男士泳衣",
-              "泳镜",
-              "游泳圈",
-              "游泳包防水包",
-              "泳帽",
-              "游泳配件",
-            ],
-          },
-          {
-            title: "垂钓用品",
-            tags: [
-              "钓竿",
-              "鱼线",
-              "浮漂",
-              "鱼饵",
-              "钓鱼配件",
-              "渔具包",
-              "钓箱钓椅",
-              "鱼线轮",
-              "钓鱼灯",
-            ],
-          },
-          {
-            title: "游泳用品",
-            tags: [
-              "女士泳衣",
-              "比基尼",
-              "男士泳衣",
-              "泳镜",
-              "游泳圈",
-              "游泳包防水包",
-              "泳帽",
-              "游泳配件",
-            ],
+            title: "pdf",
+            tags: ["pdf压缩"],
           },
         ],
       },
@@ -495,10 +246,40 @@ export default {
   },
   methods: {
     showDetail(index) {
-      index === 1 ? (this.panel1 = true) : (this.panel2 = true);
+      switch (index) {
+        case 1:
+          this.panel1 = true;
+          break;
+        case 2:
+          this.panel2 = true;
+          break;
+        case 3:
+          this.panel3 = true;
+          break;
+        case 4:
+          this.panel4 = true;
+          break;
+        default:
+          break;
+      }
     },
     hideDetail(index) {
-      index === 1 ? (this.panel1 = false) : (this.panel2 = false);
+      switch (index) {
+        case 1:
+          this.panel1 = false;
+          break;
+        case 2:
+          this.panel2 = false;
+          break;
+        case 3:
+          this.panel3 = false;
+          break;
+        case 4:
+          this.panel4 = false;
+          break;
+        default:
+          break;
+      }
     },
   },
   mounted() {
