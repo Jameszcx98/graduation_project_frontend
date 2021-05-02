@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <Search></Search> -->
-    <h>线上压缩平台</h>
+    <div class="headline">线上压缩平台</div>
     <HomeNav></HomeNav>
     <!-- 商品显示区域 -->
     <div class="content">
@@ -284,6 +284,9 @@ export default {
 </script>
 
 <style scoped>
+.headline {
+  text-align: center;
+}
 .container {
   background-color: #f6f6f6;
 }

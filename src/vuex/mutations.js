@@ -92,3 +92,6 @@ export const SET_RECOMMEND_INFO = (state, data) => {
 export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
 };
+//相当于组建中的方法，但是他不能使用异步的方法（定时器、axios），参数state是store中的参数
+// this.$store.xxx('方法名'，参数)
+

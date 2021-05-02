@@ -3,33 +3,33 @@ export const loadSeckillsInfo = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [
       {
-        intro: '【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱',
+        intro: '音频压缩',
         img: 'static/img/index/seckill/seckill-item1.jpg',
-        price: 71.9,
+        price: 1.5,
         realPrice: 89.6
       },
       {
-        intro: 'Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水',
+        intro: '音频格式转换',
         img: 'static/img/index/seckill/seckill-item2.jpg',
-        price: 989.0,
+        price: 0.5,
         realPrice: 1299.0
       },
       {
-        intro: '粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒',
+        intro: '视频压缩',
         img: 'static/img/index/seckill/seckill-item3.jpg',
-        price: 21.8,
+        price: 2,
         realPrice: 49.0
       },
       {
-        intro: '【京东超市】清风（APP）抽纸 原木纯品金装系列 3层',
+        intro: '视频格式转换',
         img: 'static/img/index/seckill/seckill-item4.jpg',
-        price: 49.9,
+        price: 1,
         realPrice: 59.0
       },
       {
-        intro: 'NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫',
+        intro: 'pdf压缩',
         img: 'static/img/index/seckill/seckill-item5.jpg',
-        price: 559.9,
+        price: 1,
         realPrice: 759.9
       }
     ];
@@ -53,13 +53,14 @@ export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = {
       carouselItems: [
-        'static/img/nav/1.jpg',
-        'static/img/nav/2.jpg',
-        'static/img/nav/3.jpg',
-        'static/img/nav/4.jpg',
-        'static/img/nav/5.jpg'
+        'static/img/nav/11.jpg',
+        'static/img/nav/22.jpg',
+        // 'static/img/nav/3.jpg',
+        // 'static/img/nav/4.jpg',
+        // 'static/img/nav/5.jpg'
       ],
       activity: [
+        // 'static/img/nav/22.jpg',
         'static/img/nav/nav_showimg1.jpg',
         'static/img/nav/nav_showimg2.jpg'
       ]
@@ -73,7 +74,7 @@ export const loadComputer = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const computer = {
       title: '电脑数码',
-      link: [ '电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊' ],
+      link: ['电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊'],
       detail: [
         {
           bigImg: 'static/img/index/computer/item-computer-1.jpg',
@@ -146,7 +147,7 @@ export const loadEat = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const eat = {
       title: '爱吃',
-      link: [ '休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃' ],
+      link: ['休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃'],
       detail: [
         {
           bigImg: 'static/img/index/eat/item-eat-1-1.jpg',
@@ -362,8 +363,8 @@ export const loadGoodsInfo = ({ commit }) => {
         ],
         remarks: {
           goodAnalyse: 90,
-          remarksTags: [ '颜色可人', '实惠优选', '严丝合缝', '极致轻薄', '质量没话说', '比定做还合适', '完美品质', '正品行货', '包装有档次', '不容易发热', '已经买第二个', '是全覆盖' ],
-          remarksNumDetail: [ 2000, 3000, 900, 1 ],
+          remarksTags: ['颜色可人', '实惠优选', '严丝合缝', '极致轻薄', '质量没话说', '比定做还合适', '完美品质', '正品行货', '包装有档次', '不容易发热', '已经买第二个', '是全覆盖'],
+          remarksNumDetail: [2000, 3000, 900, 1],
           detail: [
             {
               username: 'p****1',
@@ -705,45 +706,45 @@ export const loadShoppingCart = ({ commit }) => {
   });
 };
 
-// 添加注册用户
-export const addSignUpUser = ({ commit }, data) => {
-  return new Promise((resolve, reject) => {
-    const userArr = localStorage.getItem('users');
-    let users = [];
-    if (userArr) {
-      users = JSON.parse(userArr);
-    }
-    users.push(data);
-    localStorage.setItem('users', JSON.stringify(users));
-  });
-};
+// // 添加注册用户
+// export const addSignUpUser = ({ commit }, data) => {
+//   return new Promise((resolve, reject) => {
+//     const userArr = localStorage.getItem('users');
+//     let users = [];
+//     if (userArr) {
+//       users = JSON.parse(userArr);
+//     }
+//     users.push(data);
+//     localStorage.setItem('users', JSON.stringify(users));
+//   });
+// };
 
-// 用户登录
-export const login = ({ commit }, data) => {
-  return new Promise((resolve, reject) => {
-    if (data.username === 'Gavin' && data.password === '123456') {
-      localStorage.setItem('loginInfo', JSON.stringify(data));
-      commit('SET_USER_LOGIN_INFO', data);
-      resolve(true);
-      return true;
-    }
-    const userArr = localStorage.getItem('users');
-    console.log(userArr);
-    if (userArr) {
-      const users = JSON.parse(userArr);
-      for (const item of users) {
-        if (item.username === data.username) {
-          localStorage.setItem('loginInfo', JSON.stringify(item));
-          commit('SET_USER_LOGIN_INFO', item);
-          resolve(true);
-          break;
-        }
-      }
-    } else {
-      resolve(false);
-    }
-  });
-};
+// // 用户登录
+// export const login = ({ commit }, data) => {
+//   return new Promise((resolve, reject) => {
+//     if (data.username === 'Gavin' && data.password === '123456') {
+//       localStorage.setItem('loginInfo', JSON.stringify(data));
+//       commit('SET_USER_LOGIN_INFO', data);
+//       resolve(true);
+//       return true;
+//     }
+//     const userArr = localStorage.getItem('users');
+//     console.log(userArr);
+//     if (userArr) {
+//       const users = JSON.parse(userArr);
+//       for (const item of users) {
+//         if (item.username === data.username) {
+//           localStorage.setItem('loginInfo', JSON.stringify(item));
+//           commit('SET_USER_LOGIN_INFO', item);
+//           resolve(true);
+//           break;
+//         }
+//       }
+//     } else {
+//       resolve(false);
+//     }
+//   });
+// };
 
 // 退出登陆
 export const signOut = ({ commit }) => {
@@ -758,3 +759,7 @@ export const isLogin = ({ commit }) => {
     commit('SET_USER_LOGIN_INFO', JSON.parse(user));
   }
 };
+
+
+
+//action专门用来处理异步，实际修改依然是mutations

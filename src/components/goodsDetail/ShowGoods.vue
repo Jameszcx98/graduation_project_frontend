@@ -125,7 +125,15 @@
         <br />
         <div class="add-buy-car-box">
           <div class="add-buy-car">
-            <Upload action="//jsonplaceholder.typicode.com/posts/">
+            <Upload
+              ref="upload"
+              :on-success="handleSuccess"
+              action="http://127.0.0.1:81/upload"
+              :headers="{
+                //请求头
+                token: token,
+              }"
+            >
               <Button icon="ios-cloud-upload-outline">上传文件</Button>
             </Upload>
             <Button type="error" size="large" @click="addShoppingCartBtn()"
@@ -140,19 +148,22 @@
 
 <script>
 import store from "@/vuex/store";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   name: "ShowGoods",
   data() {
     return {
+      token: "",
       price: 0,
       count: 1,
       selectBoxIndex: 0,
       imgIndex: 0,
+      file: "",
     };
   },
   computed: {
     ...mapState(["goodsInfo"]),
+    ...mapGetters(["cookies"]),
     // hirePurchase() {
     //   const three = (this.price * this.count) / 3;
     //   const sex = (this.price * this.count) / 6;
@@ -184,12 +195,22 @@ export default {
   },
   methods: {
     ...mapActions(["addShoppingCart"]),
+
     select(index1, index2) {
       this.selectBoxIndex = index1 * 3 + index2;
       this.price = this.goodsInfo.setMeal[index1][index2].price;
     },
     showBigImg(index) {
       this.imgIndex = index;
+    },
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) {
+        return arr[2];
+      } else {
+        return false;
+      }
     },
     addShoppingCartBtn() {
       // const index1 = parseInt(this.selectBoxIndex / 3);
@@ -203,7 +224,52 @@ export default {
       //   package: this.goodsInfo.setMeal[index1][index2],
       // };
       // this.addShoppingCart(data);
-      this.$router.push("/pay");
+      let order = {
+        email: this.getCookie("email"),
+        goodsId: 1,
+        file: this.file.message,
+      };
+      this.$http
+        .post("orders", order, { headers: { token: this.getCookie("token") } })
+        .then((response) => {
+          console.log(response);
+          if (response.status == 200) {
+            // console.log("response.data");
+            this.$router.push("/pay");
+          } else if (response.status == 401) {
+          }
+        });
+    },
+    // handleUpload(file) {
+    //   console.log(file); //钩子函数返回字段
+    //   let formData = new FormData();
+    //   formData.append("file", file);
+    //   console.log(formData);
+    //   this.$http
+    //     .post("audio", formData, {
+    //       headers: { token: this.token },
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       if (response.status == 200) {
+    //         this.$Message.success("文件上传成功");
+    //       } else {
+    //         this.$Message.error("文件上传失败");
+    //       }
+    //     });
+    // },
+    // handleFormatError(file) {
+    //   this.$Notice.warning({
+    //     title: "文件格式不正确",
+    //     desc: "文件 " + file.name + " 格式不正确，请上传.xls,.xlsx文件。",
+    //   });
+    // },
+
+    handleSuccess(response, file, fileList) {
+      this.file = response;
+      console.log(response.message);
+      console.log(file);
+      console.log(fileList);
     },
   },
   mounted() {
@@ -211,6 +277,11 @@ export default {
     setTimeout(() => {
       father.price = father.goodsInfo.setMeal[0][0].price || 0;
     }, 300);
+    var arr,
+      reg = new RegExp("(^| )" + "token" + "=([^;]*)(;|$)");
+    if ((arr = document.cookie.match(reg))) {
+      father.token = arr[2];
+    }
   },
   store,
 };

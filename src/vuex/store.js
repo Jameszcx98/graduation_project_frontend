@@ -6,6 +6,7 @@ import * as getters from './getters';
 
 Vue.use(Vuex);
 
+//全局状态管理
 export default new Vuex.Store({
   state: {
     isLoading: false, // 是否展示loading动画
@@ -24,7 +25,8 @@ export default new Vuex.Store({
       remarks: []
     },
     userInfo: { // 用户信息
-      username: ''
+      username: '',
+      email: ''
     },
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销
@@ -51,3 +53,5 @@ export default new Vuex.Store({
   actions,
   mutations
 });
+//state相当于组建中的data，专门用来存放全局的数据
+//更改vuex中数据的唯一方式就是使用mutation

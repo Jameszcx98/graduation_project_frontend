@@ -62,6 +62,7 @@ export default {
         username: "",
         password: "",
       },
+      info: "",
       ruleInline: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
@@ -83,24 +84,62 @@ export default {
     ...mapActions(["login"]),
     handleSubmit(name) {
       const father = this;
-      console.log(this.formDate.username);
+      // console.log(this.formDate);
       //登录功能暂时直接登录
-      this.$Message.success("登录成功");
-      father.$router.push("/");
-      // this.$refs[name].validate((valid) => {
-      //   if (valid) {
-      //     this.login(father.formDate).then(result => {
-      //       if (result) {
-      //         this.$Message.success('登录成功');
-      //         father.$router.push('/');
-      //       } else {
-      //         this.$Message.error('用户名或密码错误');
-      //       }
-      //     });
-      //   } else {
-      //     this.$Message.error('请填写正确的用户名或密码');
-      //   }
-      // });
+      // this.$Message.success("登录成功");
+      // father.$router.push("/");
+      this.$refs[name].validate((valid) => {
+        var formData = new FormData();
+        formData.append("username", this.formDate.username);
+        formData.append("password", this.formDate.password);
+        if (valid) {
+          this.$http.post("toLogin", formData).then((response) => {
+            console.log(response);
+            if (response.status == 200) {
+              this.setCookie("username", response.headers.username);
+              this.setCookie("token", response.headers.token);
+              this.setCookie("email", this.formDate.username);
+
+              this.$Message.success("登录成功");
+              // console.log("response.data");
+              father.$router.push("/");
+            } else if (response.status == 401) {
+              this.$Message.error("用户名或密码错误");
+            }
+          });
+        } else {
+          this.$Message.error("请填写正确的用户名或密码");
+        }
+      });
+    },
+    setCookie(c_name, value, expiredays) {
+      console.log(value);
+      var exdate = new Date();
+      // SET_USER_LOGIN_INFO();
+      exdate.setDate(exdate.getDate() + expiredays);
+
+      document.cookie =
+        c_name +
+        "=" +
+        value +
+        (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
+    },
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) {
+        return arr[2];
+      } else {
+        return false;
+      }
+    },
+    delCookie(name) {
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval = getCookie(name);
+      if (cval) {
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+      }
     },
   },
   store,

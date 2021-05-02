@@ -24,8 +24,8 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.username">
-          你好，请<router-link to="/login"
+        <li class="first" v-show="username == ''">
+          <router-link to="/login"
             >登录 <Icon type="person"></Icon
           ></router-link>
           |<span class="text-color-red"
@@ -33,11 +33,11 @@
               >免费注册 <Icon type="person-add"></Icon></router-link
           ></span>
         </li>
-        <li v-show="!!userInfo.username">
+        <li v-show="username != ''">
           <Dropdown>
             <p class="username-p">
               <Avatar class="person-icon" icon="person" size="small" />
-              <span class="username">{{ userInfo.username }} </span>
+              <span class="username">{{ username }} </span>
             </p>
             <DropdownMenu slot="list">
               <div class="my-page">
@@ -122,18 +122,28 @@ export default {
   },
   data() {
     return {
-      city: "珠海",
+      city: "上海",
       cityArr: [
         ["北京", "上海", "天津", "重庆", "广州"],
         ["深圳", "河南", "辽宁", "吉林", "江苏"],
         ["江西", "四川", "海南", "贵州", "云南"],
         ["西藏", "陕西", "甘肃", "青海", "珠海"],
       ],
+      username: this.getCookie("username"),
     };
   },
   computed: {
     ...mapState(["userInfo", "shoppingCart"]),
   },
+  watch: {
+    $route: {
+      handler() {
+        console.log("hhhhh");
+        this.username = this.getCookie("username");
+      },
+    },
+  },
+
   methods: {
     ...mapActions(["signOut", "isLogin"]),
     changeCity(city) {
@@ -143,13 +153,34 @@ export default {
       this.$router.push("/order");
     },
     myInfo() {
+      console.log(this.userInfo.username);
       this.$router.push("/home");
     },
     signOutFun() {
-      this.signOut();
-      this.$router.push("/");
+      this.delCookie("username");
+      this.delCookie("token");
+
+      this.username = "";
+    },
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) {
+        return arr[2];
+      } else {
+        return false;
+      }
+    },
+    delCookie(name) {
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval = this.getCookie(name);
+      if (cval) {
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+      }
     },
   },
+
   store,
 };
 </script>

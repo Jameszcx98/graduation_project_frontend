@@ -27,7 +27,7 @@
               :key="index"
             >
               <router-link to="/goodsList">
-                <img :src="item" />
+                <img class="slide-img" :src="item" />
               </router-link>
             </CarouselItem>
           </Carousel>
@@ -139,7 +139,7 @@
             class="detail-item-row"
           >
             <span class="detail-item-title"
-              >{{ items.title }}>
+              >{{ items.title }}
               <span class="glyphicon glyphicon-menu-right"></span>
             </span>
             <router-link
@@ -315,6 +315,10 @@ export default {
 </script>
 
 <style scoped>
+.slide-img {
+  width: 100%;
+  height: 342px;
+}
 .nav-item {
   width: 680px;
   height: 36px;
@@ -346,11 +350,11 @@ export default {
 }
 .nav-side {
   width: 200px;
-  height: 100%;
+  height: 342px;
   padding: 0px;
   color: #fff;
   float: left;
-  background-color: #6e6568;
+  background-color: #ed3f14db;
 }
 .nav-side ul {
   width: 100%;
@@ -365,7 +369,7 @@ export default {
   line-height: 18px;
 }
 .nav-side li:hover {
-  background: #999395;
+  background: #f90;
 }
 .nav-side-item:hover {
   cursor: pointer;
@@ -395,7 +399,7 @@ export default {
 .detail-item-panel {
   width: 815px;
   height: 485px;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.75);
   position: absolute;
   top: 168px;
   left: 389px;
@@ -431,13 +435,13 @@ export default {
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;
-  color: #555555;
+  color: #fcf7f7;
 }
 .detail-item-title:hover {
   color: #d9534f;
 }
 .detail-item-row a {
-  color: #555555;
+  color: #f7f3f3;
 }
 .detail-item {
   font-size: 14px;

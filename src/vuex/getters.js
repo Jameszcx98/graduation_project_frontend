@@ -26,3 +26,14 @@ export const seckillsMinutes = state => {
 export const seckillsSeconds = state => {
   return state.seckills.deadline.seconds < 10 ? `0${state.seckills.deadline.seconds}` : state.seckills.deadline.seconds;
 };
+//getters相当于组件中的computed，getters是全局的，computed是组件内的
+export const cookies = (state, data) => {
+  console.log(data);
+  var arr,
+    reg = new RegExp("(^| )" + data + "=([^;]*)(;|$)");
+  if ((arr = document.cookie.match(reg))) {
+    return arr[2];
+  } else {
+    return false;
+  }
+};
