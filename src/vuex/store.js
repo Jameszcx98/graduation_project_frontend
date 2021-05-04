@@ -34,11 +34,15 @@ export default new Vuex.Store({
       activity: [] // 活动
     },
     seckills: { // 秒杀
-      deadline: {
-        hours: 0,
-        minute: 0,
-        seconds: 0
-      },
+      goodsList: []
+    },
+    seckillsV: { // 秒杀
+      goodsList: []
+    },
+    seckillsA: { // 秒杀
+      goodsList: []
+    },
+    seckillsPDF: { // 秒杀
       goodsList: []
     },
     computer: {}, // 电脑专栏

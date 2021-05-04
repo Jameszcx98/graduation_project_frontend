@@ -1,52 +1,74 @@
-// 获取秒杀数据
+// 获取照片数据
 export const loadSeckillsInfo = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [
       {
-        intro: '音频压缩',
-        img: 'static/img/index/seckill/seckill-item1.jpg',
+        intro: '照片压缩',
+        img: 'static/img/index/seckill/photoy.jpg',
         price: 1.5,
         realPrice: 89.6
       },
-      {
-        intro: '音频格式转换',
-        img: 'static/img/index/seckill/seckill-item2.jpg',
-        price: 0.5,
-        realPrice: 1299.0
-      },
+
+    ];
+    commit('SET_SECKILLS_INFO', data);
+  });
+};
+
+export const loadSeckillsInfoV = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const data = [
+
       {
         intro: '视频压缩',
-        img: 'static/img/index/seckill/seckill-item3.jpg',
+        img: 'static/img/index/seckill/videoy.jpg',
         price: 2,
         realPrice: 49.0
       },
       {
         intro: '视频格式转换',
-        img: 'static/img/index/seckill/seckill-item4.jpg',
+        img: 'static/img/index/seckill/videoz.jpg',
         price: 1,
         realPrice: 59.0
       },
+
+    ];
+    commit('SET_SECKILLS_INFOV', data);
+  });
+};
+export const loadSeckillsInfoA = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const data = [
+      {
+        intro: '音频压缩',
+        img: 'static/img/index/seckill/audioy.jpg',
+        price: 1.5,
+        realPrice: 89.6
+      },
+      {
+        intro: '音频格式转换',
+        img: 'static/img/index/seckill/audioz.jpg',
+        price: 0.5,
+        realPrice: 1299.0
+      },
+
+    ];
+    commit('SET_SECKILLS_INFOA', data);
+  });
+};
+export const loadSeckillsInfoPDF = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const data = [
       {
         intro: 'pdf压缩',
-        img: 'static/img/index/seckill/seckill-item5.jpg',
+        img: 'static/img/index/seckill/pdfy.jpg',
         price: 1,
         realPrice: 759.9
       }
     ];
-    const date = new Date();
-    const hours = date.getHours();
-    const minute = date.getMinutes();
-    const seconds = date.getSeconds();
-    console.log([hours, minute, seconds]);
-    // 距离开始秒杀时间
-    const deadline = {
-      hours: 1,
-      minute: 38,
-      seconds: 36
-    };
-    commit('SET_SECKILLS_INFO', [data, deadline]);
+    commit('SET_SECKILLS_INFOPDF', data);
   });
 };
+
 
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
@@ -69,151 +91,7 @@ export const loadCarouselItems = ({ commit }) => {
   });
 };
 
-// 加载电脑专栏数据
-export const loadComputer = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const computer = {
-      title: '电脑数码',
-      link: ['电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊'],
-      detail: [
-        {
-          bigImg: 'static/img/index/computer/item-computer-1.jpg',
-          itemFour: [
-            {
-              title: '电脑馆',
-              intro: '笔记本999元限量秒！',
-              img: 'static/img/index/computer/item-computer-2.jpg'
-            },
-            {
-              title: '外设装备',
-              intro: '1000减618',
-              img: 'static/img/index/computer/item-computer-1-3.jpg'
-            },
-            {
-              title: '电脑配件',
-              intro: '联合满减最高省618',
-              img: 'static/img/index/computer/item-computer-1-4.jpg'
-            },
-            {
-              title: '办公生活',
-              intro: '5折神券 精品文具',
-              img: 'static/img/index/computer/item-computer-1-5.jpg'
-            }
-          ],
-          itemContent: [
-            'static/img/index/computer/item-computer-1-6.jpg',
-            'static/img/index/computer/item-computer-1-7.jpg',
-            'static/img/index/computer/item-computer-1-8.jpg'
-          ]
-        },
-        {
-          bigImg: 'static/img/index/computer/item-computer-2-1.jpg',
-          itemFour: [
-            {
-              title: '平板电脑',
-              intro: '爆款平板12期免息',
-              img: 'static/img/index/computer/item-computer-2-2.jpg'
-            },
-            {
-              title: '智能酷玩',
-              intro: '抢999减666神券',
-              img: 'static/img/index/computer/item-computer-2-3.jpg'
-            },
-            {
-              title: '娱乐影音',
-              intro: '大牌耳机低至5折',
-              img: 'static/img/index/computer/item-computer-2-4.jpg'
-            },
-            {
-              title: '摄影摄像',
-              intro: '大牌相机5折抢',
-              img: 'static/img/index/computer/item-computer-2-5.jpg'
-            }
-          ],
-          itemContent: [
-            'static/img/index/computer/item-computer-2-6.jpg',
-            'static/img/index/computer/item-computer-2-7.jpg',
-            'static/img/index/computer/item-computer-2-8.jpg'
-          ]
-        }
-      ]
-    };
-    commit('SET_COMPUTER_INFO', computer);
-  });
-};
 
-// 加载爱吃专栏数据
-export const loadEat = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const eat = {
-      title: '爱吃',
-      link: ['休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃'],
-      detail: [
-        {
-          bigImg: 'static/img/index/eat/item-eat-1-1.jpg',
-          itemFour: [
-            {
-              title: '粮油调味',
-              intro: '买2免1',
-              img: 'static/img/index/eat/item-eat-1-2.jpg'
-            },
-            {
-              title: '饮料冲调',
-              intro: '第二件半价',
-              img: 'static/img/index/eat/item-eat-1-3.jpg'
-            },
-            {
-              title: '休闲零食',
-              intro: '满99减40',
-              img: 'static/img/index/eat/item-eat-1-4.jpg'
-            },
-            {
-              title: '中外名酒',
-              intro: '满199减100',
-              img: 'static/img/index/eat/item-eat-1-5.jpg'
-            }
-          ],
-          itemContent: [
-            'static/img/index/eat/item-eat-1-6.jpg',
-            'static/img/index/eat/item-eat-1-7.jpg',
-            'static/img/index/eat/item-eat-1-8.jpg'
-          ]
-        },
-        {
-          bigImg: 'static/img/index/eat/item-eat-2-1.jpg',
-          itemFour: [
-            {
-              title: '东家菜',
-              intro: '丰富好味',
-              img: 'static/img/index/eat/item-eat-2-2.jpg'
-            },
-            {
-              title: '东家菜',
-              intro: '丰富好味',
-              img: 'static/img/index/eat/item-eat-2-2.jpg'
-            },
-            {
-              title: '东家菜',
-              intro: '丰富好味',
-              img: 'static/img/index/eat/item-eat-2-2.jpg'
-            },
-            {
-              title: '东家菜',
-              intro: '丰富好味',
-              img: 'static/img/index/eat/item-eat-2-2.jpg'
-            }
-          ],
-          itemContent: [
-            'static/img/index/eat/item-eat-2-6.jpg',
-            'static/img/index/eat/item-eat-2-7.jpg',
-            'static/img/index/eat/item-eat-2-8.jpg'
-          ]
-        }
-      ]
-    };
-    commit('SET_EAT_INFO', eat);
-  });
-};
 
 // 请求获得商品详细信息
 export const loadGoodsInfo = ({ commit }) => {
@@ -227,7 +105,7 @@ export const loadGoodsInfo = ({ commit }) => {
           'static/img/goodsDetail/item-detail-3.jpg',
           'static/img/goodsDetail/item-detail-4.jpg'
         ],
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
+        title: 'pdf压缩（压缩后的文件大小约等于原质量x压缩率）',
         tags: ['满69-20元', '关注产品★送钢化膜', 'BIT配次日达'],
         discount: ['满148减10', '满218减20', '满288减30'],
         promotion: ['跨店满减', '多买优惠'],
@@ -235,55 +113,22 @@ export const loadGoodsInfo = ({ commit }) => {
         setMeal: [
           [
             {
-              img: 'static/img/goodsDetail/pack/1.jpg',
-              intro: '4.7英寸-深邃蓝',
-              price: 28.0
+              img: 'static/img/goodsDetail/pack/high.jpg',
+              intro: '高压缩率-0.25',
+              price: 1
             },
             {
-              img: 'static/img/goodsDetail/pack/2.jpg',
-              intro: '4.7英寸-星空黑',
-              price: 29.0
+              img: 'static/img/goodsDetail/pack/medium.jpg',
+              intro: '中等压缩率-0.5',
+              price: 1
             },
             {
-              img: 'static/img/goodsDetail/pack/3.jpg',
-              intro: '5.5英寸-香槟金',
-              price: 28.5
+              img: 'static/img/goodsDetail/pack/low.jpg',
+              intro: '低压缩率-0.75',
+              price: 1
             }
           ],
-          [
-            {
-              img: 'static/img/goodsDetail/pack/4.jpg',
-              intro: '5.5英寸-玫瑰金',
-              price: 32.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/5.jpg',
-              intro: '5.5英寸-深邃蓝',
-              price: 32.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/6.jpg',
-              intro: '5.5英寸-星空黑',
-              price: 35.0
-            }
-          ],
-          [
-            {
-              img: 'static/img/goodsDetail/pack/7.jpg',
-              intro: '4.7英寸-香槟金',
-              price: 26.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/8.jpg',
-              intro: '4.7英寸-玫瑰金',
-              price: 25.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/9.jpg',
-              intro: '4.7英寸-中国红',
-              price: 28.0
-            }
-          ]
+          
         ],
         hot: [
           {

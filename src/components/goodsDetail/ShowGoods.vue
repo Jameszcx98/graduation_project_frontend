@@ -127,6 +127,7 @@
           <div class="add-buy-car">
             <Upload
               ref="upload"
+              :before-upload="onBefore"
               :on-success="handleSuccess"
               action="http://127.0.0.1:81/upload"
               :headers="{
@@ -138,6 +139,9 @@
             </Upload>
             <Button type="error" size="large" @click="addShoppingCartBtn()"
               >付款</Button
+            >
+            <Button type="error" size="large" @click="toDownload()"
+              >下载</Button
             >
           </div>
         </div>
@@ -226,7 +230,7 @@ export default {
       // this.addShoppingCart(data);
       let order = {
         email: this.getCookie("email"),
-        goodsId: 1,
+        goodsId: 3,
         file: this.file.message,
       };
       this.$http
@@ -235,10 +239,16 @@ export default {
           console.log(response);
           if (response.status == 200) {
             // console.log("response.data");
-            this.$router.push("/pay");
+            // this.$router.push("/pay");
           } else if (response.status == 401) {
           }
         });
+    },
+    onBefore(file) {
+      if (this.getCookie("token") == "") {
+        this.$Message.error("请先登录！");
+        this.$router.push("/login");
+      }
     },
     // handleUpload(file) {
     //   console.log(file); //钩子函数返回字段
@@ -264,12 +274,58 @@ export default {
     //     desc: "文件 " + file.name + " 格式不正确，请上传.xls,.xlsx文件。",
     //   });
     // },
+    sleep(millisecond) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, millisecond);
+      });
+    },
 
     handleSuccess(response, file, fileList) {
       this.file = response;
       console.log(response.message);
       console.log(file);
       console.log(fileList);
+    },
+    toDownload() {
+      this.$http
+        .get(
+          "download?file=" +
+            this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
+            "_compressed.pdf",
+          { headers: { token: this.getCookie("token") }, responseType: "blob" }
+        )
+        .then((res) => {
+          console.log(res);
+          this.download(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.status == 400) {
+            this.$Message.error("下载出错，文件可能不存在！！");
+          }
+        });
+    },
+    download(data) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(
+        new Blob([data], { type: `application/pdf;charset-UTF-8` })
+      );
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute(
+        "download",
+        this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
+          "_compressed.pdf"
+      );
+
+      document.body.appendChild(link);
+      link.click();
+      this.$Message.info("下载完成！");
     },
   },
   mounted() {

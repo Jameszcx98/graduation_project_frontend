@@ -59,7 +59,7 @@
         <div class="seckill-content">
           <div
             class="seckill-item"
-            v-for="(item, index) in seckills.goodsList"
+            v-for="(item, index) in seckillsV.goodsList"
             :key="index"
           >
             <div class="seckill-item-img">
@@ -95,7 +95,7 @@
         <div class="seckill-content">
           <div
             class="seckill-item"
-            v-for="(item, index) in seckills.goodsList"
+            v-for="(item, index) in seckillsA.goodsList"
             :key="index"
           >
             <div class="seckill-item-img">
@@ -131,7 +131,7 @@
         <div class="seckill-content">
           <div
             class="seckill-item"
-            v-for="(item, index) in seckills.goodsList"
+            v-for="(item, index) in seckillsPDF.goodsList"
             :key="index"
           >
             <div class="seckill-item-img">
@@ -242,17 +242,14 @@ export default {
   name: "Index",
   created() {
     this.loadSeckillsInfo();
+    this.loadSeckillsInfoA();
+    this.loadSeckillsInfoV();
+    this.loadSeckillsInfoPDF();
+
     this.loadCarouselItems();
-    this.loadComputer();
-    this.loadEat();
     this.loadShoppingCart();
   },
-  mounted() {
-    const father = this;
-    this.setIntervalObj = setInterval(function () {
-      father.REDUCE_SECKILLS_TIME();
-    }, 1000);
-  },
+
   data() {
     return {
       setIntervalObj: null,
@@ -261,16 +258,15 @@ export default {
   methods: {
     ...mapActions([
       "loadSeckillsInfo",
+      "loadSeckillsInfoA",
+      "loadSeckillsInfoV",
+      "loadSeckillsInfoPDF",
       "loadCarouselItems",
-      "loadComputer",
-      "loadEat",
       "loadShoppingCart",
     ]),
-    ...mapMutations(["REDUCE_SECKILLS_TIME"]),
   },
   computed: {
-    ...mapState(["seckills", "computer", "eat"]),
-    ...mapGetters(["seckillsHours", "seckillsMinutes", "seckillsSeconds"]),
+    ...mapState(["seckills", "seckillsA", "seckillsV", "seckillsPDF"]),
   },
   components: {
     Search,

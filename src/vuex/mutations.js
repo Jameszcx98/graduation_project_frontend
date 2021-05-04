@@ -15,8 +15,19 @@ export const SET_LOAD_STATUS = (state, status) => {
 
 // 设置秒杀商品
 export const SET_SECKILLS_INFO = (state, seckills) => {
-  state.seckills.goodsList = seckills[0];
-  state.seckills.deadline = seckills[1];
+  state.seckills.goodsList = seckills;
+};
+// 设置秒杀商品
+export const SET_SECKILLS_INFOA = (state, seckills) => {
+  state.seckillsA.goodsList = seckills;
+};
+// 设置秒杀商品
+export const SET_SECKILLS_INFOV = (state, seckills) => {
+  state.seckillsV.goodsList = seckills;
+};
+// 设置秒杀商品
+export const SET_SECKILLS_INFOPDF = (state, seckills) => {
+  state.seckillsPDF.goodsList = seckills;
 };
 
 // 设置轮播(营销)图
@@ -30,23 +41,7 @@ export const SET_COMPUTER_INFO = (state, computer) => {
   state.computer = computer;
 };
 
-// 设置爱吃专栏数据
-export const SET_EAT_INFO = (state, eat) => {
-  state.eat = eat;
-};
 
-// 减少秒杀时间
-export const REDUCE_SECKILLS_TIME = state => {
-  state.seckills.deadline.seconds--;
-  if (state.seckills.deadline.seconds === -1) {
-    state.seckills.deadline.seconds = 59;
-    state.seckills.deadline.minute--;
-    if (state.seckills.deadline.minute === -1) {
-      state.seckills.deadline.minute = 59;
-      state.seckills.deadline.hour--;
-    }
-  }
-};
 
 // 设置商品列表(搜索)
 export const SET_GOODS_LIST = (state, data) => {
