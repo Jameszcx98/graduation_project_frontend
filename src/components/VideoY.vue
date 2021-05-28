@@ -3,7 +3,7 @@
     <div class="item-detail-show">
       <div class="item-detail-left">
         <div class="item-detail-big-img">
-          <img :src="goodsInfo.goodsImg[imgIndex]" alt="" />
+          <img :src="goodsInfoVideoY.goodsImg[imgIndex]" alt="" />
         </div>
         <!-- <div class="item-detail-img-row">
           <div
@@ -20,7 +20,7 @@
         <div class="item-detail-title">
           <p>
             <!-- <span class="item-detail-express">校园配送</span> -->
-            {{ goodsInfo.title }}
+            {{ goodsInfoVideoY.title }}
           </p>
         </div>
         <!-- <div class="item-detail-tag">
@@ -82,7 +82,7 @@
           <div class="item-select-column">
             <div
               class="item-select-row"
-              v-for="(items, index) in goodsInfo.setMeal"
+              v-for="(items, index) in goodsInfoVideoY.setMeal"
               :key="index"
             >
               <div
@@ -129,7 +129,7 @@
               ref="upload"
               :before-upload="onBefore"
               :on-success="handleSuccess"
-              action="http://127.0.0.1:81/upload"
+              action="http://47.116.142.93:81/upload"
               :headers="{
                 //请求头
                 token: token,
@@ -154,7 +154,10 @@
 import store from "@/vuex/store";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
-  name: "pdfY",
+  name: "picture",
+  created() {
+    this.loadGoodsInfoVideoY();
+  },
   data() {
     return {
       token: "",
@@ -163,46 +166,28 @@ export default {
       selectBoxIndex: 0,
       imgIndex: 0,
       file: "",
+      rate:30
     };
   },
   computed: {
-    ...mapState(["goodsInfo"]),
+    ...mapState(["goodsInfoVideoY"]),
     ...mapGetters(["cookies"]),
-    // hirePurchase() {
-    //   const three = (this.price * this.count) / 3;
-    //   const sex = (this.price * this.count) / 6;
-    //   const twelve = ((this.price * this.count) / 12) * 1.0025;
-    //   const twentyFour = ((this.price * this.count) / 24) * 1.005;
-    //   return [
-    //     {
-    //       tooltip: "无手续费",
-    //       type: "不分期",
-    //     },
-    //     {
-    //       tooltip: "无手续费",
-    //       type: `￥${three.toFixed(2)} x 3期`,
-    //     },
-    //     {
-    //       tooltip: "无手续费",
-    //       type: `￥${sex.toFixed(2)} x 6期`,
-    //     },
-    //     {
-    //       tooltip: "含手续费：费率0.25%起，￥0.1起×12期",
-    //       type: `￥${twelve.toFixed(2)} x 12期`,
-    //     },
-    //     {
-    //       tooltip: "含手续费：费率0.5%起，￥0.1起×12期",
-    //       type: `￥${twentyFour.toFixed(2)} x 24期`,
-    //     },
-    //   ];
-    // },
   },
   methods: {
-    ...mapActions(["addShoppingCart"]),
+    ...mapActions(["addShoppingCart", "loadGoodsInfoVideoY"]),
 
     select(index1, index2) {
-      this.selectBoxIndex = index1 * 3 + index2;
-      this.price = this.goodsInfo.setMeal[index1][index2].price;
+      console.log(index1);
+      console.log(index2);
+      this.selectBoxIndex=index2
+
+      if (index2 == 0) {
+        this.rate = 30;
+      } else if (index2 == 1) {
+        this.rate = 15;
+      } else if (index2 == 2) {
+        this.rate = 5;
+      }
     },
     showBigImg(index) {
       this.imgIndex = index;
@@ -217,21 +202,11 @@ export default {
       }
     },
     addShoppingCartBtn() {
-      // const index1 = parseInt(this.selectBoxIndex / 3);
-      // const index2 = this.selectBoxIndex % 3;
-      // const date = new Date();
-      // const goodsId = date.getTime();
-      // const data = {
-      //   goods_id: goodsId,
-      //   title: this.goodsInfo.title,
-      //   count: this.count,
-      //   package: this.goodsInfo.setMeal[index1][index2],
-      // };
-      // this.addShoppingCart(data);
       let order = {
         email: this.getCookie("email"),
-        goodsId: 3,
+        goodsId: 6,
         file: this.file.message,
+        rate: this.rate
       };
       this.$http
         .post("orders", order, { headers: { token: this.getCookie("token") } })
@@ -240,6 +215,9 @@ export default {
           if (response.status == 200) {
             // console.log("response.data");
             // this.$router.push("/pay");
+                      setTimeout(() => {
+            this.$Message.success("文件转换成功");
+          }, 3000);  
           } else if (response.status == 401) {
           }
         });
@@ -250,37 +228,7 @@ export default {
         this.$router.push("/login");
       }
     },
-    // handleUpload(file) {
-    //   console.log(file); //钩子函数返回字段
-    //   let formData = new FormData();
-    //   formData.append("file", file);
-    //   console.log(formData);
-    //   this.$http
-    //     .post("audio", formData, {
-    //       headers: { token: this.token },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       if (response.status == 200) {
-    //         this.$Message.success("文件上传成功");
-    //       } else {
-    //         this.$Message.error("文件上传失败");
-    //       }
-    //     });
-    // },
-    // handleFormatError(file) {
-    //   this.$Notice.warning({
-    //     title: "文件格式不正确",
-    //     desc: "文件 " + file.name + " 格式不正确，请上传.xls,.xlsx文件。",
-    //   });
-    // },
-    sleep(millisecond) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, millisecond);
-      });
-    },
+    
 
     handleSuccess(response, file, fileList) {
       this.file = response;
@@ -293,12 +241,19 @@ export default {
         .get(
           "download?file=" +
             this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
-            "_compressed.pdf",
+            "_operated"+
+            this.rate +
+            ".mp4",
           { headers: { token: this.getCookie("token") }, responseType: "blob" }
         )
         .then((res) => {
           console.log(res);
           this.download(res.data);
+          setTimeout(() => {
+            this.$router.go(0)
+            
+          }, 2000);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -320,7 +275,9 @@ export default {
       link.setAttribute(
         "download",
         this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
-          "_compressed.pdf"
+          "_operated"+
+            this.rate +
+            ".mp4",
       );
 
       document.body.appendChild(link);
@@ -331,7 +288,7 @@ export default {
   mounted() {
     const father = this;
     setTimeout(() => {
-      father.price = father.goodsInfo.setMeal[0][0].price || 0;
+      father.price = father.goodsInfoVideoY.setMeal[0][0].price || 0;
     }, 300);
     var arr,
       reg = new RegExp("(^| )" + "token" + "=([^;]*)(;|$)");

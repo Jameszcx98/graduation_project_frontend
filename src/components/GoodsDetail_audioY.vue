@@ -24,8 +24,8 @@
 import Search from "@/components/Search";
 import GoodsDetailNav from "@/components/nav/GoodsDetailNav";
 import ShopHeader from "@/components/header/ShopHeader";
-import ShowGoods from "@/components/goodsDetail/ShowGoods";
-import ShowGoodsDetail from "@/components/goodsDetail/ShowGoodsDetail";
+import ShowGoods from "@/components/AudioY";
+// import ShowGoodsDetail from "@/components/goodsDetail/ShowGoodsDetail";
 import store from "@/vuex/store";
 import { mapState, mapActions } from "vuex";
 export default {
@@ -53,7 +53,7 @@ export default {
     ShopHeader,
     GoodsDetailNav,
     ShowGoods,
-    ShowGoodsDetail,
+    // ShowGoodsDetail,
   },
   store,
 };

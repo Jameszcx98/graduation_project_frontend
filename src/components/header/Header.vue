@@ -21,12 +21,14 @@
               </div>
             </DropdownMenu>
           </Dropdown>
+          <a class="headline111">在线文件格式转换与压缩平台欢迎您！</a>
         </li>
       </ul>
+
       <ul class="detail">
         <li class="first" v-show="username == ''">
           <router-link to="/login"
-            >登录 <Icon type="person"></Icon
+            >用户登录 <Icon type="person"></Icon
           ></router-link>
           |<span class="text-color-red"
             ><router-link to="/SignUp"
@@ -53,59 +55,15 @@
             </DropdownMenu>
           </Dropdown>
         </li>
-        <li>
-          <Dropdown placement="bottom-start">
-            <a href="javascript:void(0)">
-              <Icon type="ios-cart-outline"></Icon> 购物车
-            </a>
-            <DropdownMenu slot="list">
-              <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
-                <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
-                <span>你的购物车没有空空哦</span>
-                <span>赶快去添加商品吧~</span>
-              </div>
-              <div class="shopping-cart-list" v-show="shoppingCart.length > 0">
-                <div
-                  class="shopping-cart-box"
-                  v-for="(item, index) in shoppingCart"
-                  :key="index"
-                >
-                  <div class="shopping-cart-img">
-                    <img :src="item.img" />
-                  </div>
-                  <div class="shopping-cart-info">
-                    <div class="shopping-cart-title">
-                      <p>{{ item.title.substring(0, 22) }}...</p>
-                    </div>
-                    <div class="shopping-cart-detail">
-                      <p>
-                        套餐:
-                        <span class="shopping-cart-text">
-                          {{ item.package }}
-                        </span>
-                        数量:
-                        <span class="shopping-cart-text">
-                          {{ item.count }}
-                        </span>
-                        价钱:
-                        <span class="shopping-cart-text">
-                          {{ item.price }}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="go-to-buy">
-                  <Button type="error" size="small" @click="goToPay">
-                    去结账
-                  </Button>
-                </div>
-              </div>
-            </DropdownMenu>
-          </Dropdown>
-        </li>
         <li><router-link to="/">网站导航</router-link></li>
         <li><router-link to="/freeback">意见反馈</router-link></li>
+        <li>
+          <Dropdown placement="bottom-start">
+            <a href="javascript:void(0)" @click="pay">
+              <Icon type="ios-cart-outline"></Icon> 账户充值
+            </a>
+          </Dropdown>
+        </li>
         <li><router-link to="/home">我的文件</router-link></li>
       </ul>
     </div>
@@ -138,7 +96,7 @@ export default {
   watch: {
     $route: {
       handler() {
-        console.log("hhhhh");
+        // console.log("hhhhh");
         this.username = this.getCookie("username");
       },
     },
@@ -146,6 +104,9 @@ export default {
 
   methods: {
     ...mapActions(["signOut", "isLogin"]),
+    pay() {
+      this.$router.push("/pay");
+    },
     changeCity(city) {
       this.city = city;
     },
@@ -186,6 +147,7 @@ export default {
 </script>
 
 <style scoped>
+
 .box {
   width: 100%;
   height: 35px;

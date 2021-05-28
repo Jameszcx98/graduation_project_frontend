@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <!-- <Search></Search> -->
-    <div class="headline">线上压缩平台</div>
     <HomeNav></HomeNav>
     <!-- 商品显示区域 -->
     <div class="content">
@@ -25,9 +24,7 @@
             :key="index"
           >
             <div class="seckill-item-img">
-              <router-link to="/goodsDetail"
-                ><img :src="item.img"
-              /></router-link>
+              <router-link :to="item.url"><img :src="item.img" /></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{ item.intro }}</p>
@@ -36,7 +33,7 @@
                   ><Icon type="social-yen"></Icon>{{ item.price }}</span
                 >
                 <span class="seckill-old-price"
-                  ><s>{{ item.realPrice }}</s></span
+                  >已售出{{ item.sellNumber }}件</span
                 >
               </p>
             </div>
@@ -63,7 +60,7 @@
             :key="index"
           >
             <div class="seckill-item-img">
-              <router-link to="/goodsList"><img :src="item.img" /></router-link>
+              <router-link :to="item.url"><img :src="item.img" /></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{ item.intro }}</p>
@@ -72,7 +69,7 @@
                   ><Icon type="social-yen"></Icon>{{ item.price }}</span
                 >
                 <span class="seckill-old-price"
-                  ><s>{{ item.realPrice }}</s></span
+                  >已售出{{ item.sellNumber }}件</span
                 >
               </p>
             </div>
@@ -99,7 +96,7 @@
             :key="index"
           >
             <div class="seckill-item-img">
-              <router-link to="/goodsList"><img :src="item.img" /></router-link>
+              <router-link :to="item.url"><img :src="item.img" /></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{ item.intro }}</p>
@@ -108,7 +105,7 @@
                   ><Icon type="social-yen"></Icon>{{ item.price }}</span
                 >
                 <span class="seckill-old-price"
-                  ><s>{{ item.realPrice }}</s></span
+                  >已售出{{ item.sellNumber }}件</span
                 >
               </p>
             </div>
@@ -135,7 +132,7 @@
             :key="index"
           >
             <div class="seckill-item-img">
-              <router-link to="/goodsList"><img :src="item.img" /></router-link>
+              <router-link :to="item.url"><img :src="item.img" /></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{ item.intro }}</p>
@@ -144,91 +141,13 @@
                   ><Icon type="social-yen"></Icon>{{ item.price }}</span
                 >
                 <span class="seckill-old-price"
-                  ><s>{{ item.realPrice }}</s></span
+                  >已售出{{ item.sellNumber }}件</span
                 >
               </p>
             </div>
           </div>
         </div>
       </div>
-      <!-- 电脑专场 -->
-      <!-- <div class="item-class">
-        <div class="item-class-head">
-          <span class="item-class-title">{{computer.title}}</span>
-          <ul>
-            <li v-for="(item, index) in computer.link" :key="index">
-              <router-link to="/goodsList">{{item}}</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="item-class-content" v-for="(item, index) in computer.detail" :key="index">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <router-link to="/goodsList">
-                <img :src="item.bigImg" alt="">
-              </router-link>
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <router-link to="/goodsList">
-                    <img :src="subItem.img" alt="">
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item-content-bottom">
-            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <router-link to="/goodsList">
-                <img :src="subImg">
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- 爱吃专场 -->
-      <!-- <div class="item-class"> -->
-      <!-- <div class="item-class-head item-class-eat-head">
-          <span class="item-class-title">{{eat.title}}</span>
-          <ul>
-            <li v-for="(item, index) in eat.link" :key="index">
-              <router-link to="/goodsList">{{item}}</router-link>
-            </li>
-          </ul>
-        </div> -->
-      <!-- <div class="item-class-content" v-for="(item, index) in eat.detail" :key="index">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <img :src="item.bigImg" alt="">
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <router-link to="/goodsList">
-                    <img :src="subItem.img" alt="">
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </div> -->
-      <!-- <div class="item-content-bottom">
-            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <router-link to="/goodsList">
-                <img :src="subImg">
-              </router-link>
-            </div>
-          </div>
-        </div> -->
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -245,7 +164,6 @@ export default {
     this.loadSeckillsInfoA();
     this.loadSeckillsInfoV();
     this.loadSeckillsInfoPDF();
-
     this.loadCarouselItems();
     this.loadShoppingCart();
   },
@@ -264,6 +182,15 @@ export default {
       "loadCarouselItems",
       "loadShoppingCart",
     ]),
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) {
+        return arr[2];
+      } else {
+        return false;
+      }
+    },
   },
   computed: {
     ...mapState(["seckills", "seckillsA", "seckillsV", "seckillsPDF"]),

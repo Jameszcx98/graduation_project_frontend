@@ -16,7 +16,9 @@ import store from '@/vuex/store';
 Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://127.0.0.1:81/'
+axios.defaults.baseURL = 'http://47.116.142.93:81/'
+// axios.defaults.baseURL = 'http://localhost:81/'
+
 
 
 router.beforeEach((to, from, next) => {

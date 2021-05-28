@@ -17,6 +17,7 @@
             <span class="nav-side-item">pdf</span>
           </li>
         </ul>
+        <div><img class="nav-imgu" src="static/img/nav/zan.jpeg" /></div>
       </div>
       <div class="nav-content">
         <!-- 幻灯片 -->
@@ -39,7 +40,7 @@
             :key="index"
           >
             <router-link to="/goodsList">
-              <img :src="item" />
+              <img class="nav-img" :src="item" />
             </router-link>
           </div>
         </div>
@@ -315,9 +316,17 @@ export default {
 </script>
 
 <style scoped>
+.nav-imgu {
+  width: 100%;
+  background-position: bottom;
+}
 .slide-img {
   width: 100%;
   height: 342px;
+}
+.nav-img {
+  width: 390px;
+  height: 130px;
 }
 .nav-item {
   width: 680px;
@@ -361,6 +370,7 @@ export default {
   padding: 0px;
   padding-top: 15px;
   list-style: none;
+  height: 100%;
 }
 .nav-side li {
   padding: 7.5px;
@@ -387,6 +397,7 @@ export default {
 .nav-show-img {
   margin-top: 10px;
   float: left;
+
 }
 .nav-show-img:nth-child(2) {
   margin-left: 12px;

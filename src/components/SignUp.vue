@@ -8,7 +8,7 @@
         <div class="sign-up-title">
           <h1>欢迎注册账号</h1>
           <br />
-          <h2>BIT MALL, 天天低价品质保证, 让消费者钱更值钱</h2>
+          <h2>在线文件格式转换与压缩平台，让您快人一步！</h2>
         </div>
         <div class="sing-up-step-box">
           <Steps :current="signUpStep">

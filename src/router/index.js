@@ -6,8 +6,14 @@ const SignUp = resolve => require(['@/components/SignUp'], resolve);
 const CheckPhone = resolve => require(['@/components/signUp/CheckPhone'], resolve);
 const InputInfo = resolve => require(['@/components/signUp/InputInfo'], resolve);
 const SignUpDone = resolve => require(['@/components/signUp/SignUpDone'], resolve);
-const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
-const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
+// const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
+const GoodsDetailPdf = resolve => require(['@/components/GoodsDetail_pdf'], resolve);
+const GoodsDetailPicture = resolve => require(['@/components/GoodsDetail_picture'], resolve);
+const GoodsDetailAudioY = resolve => require(['@/components/GoodsDetail_audioY'], resolve);
+const GoodsDetailAudioZ = resolve => require(['@/components/GoodsDetail_audioZ'], resolve);
+const GoodsDetailVideoY = resolve => require(['@/components/GoodsDetail_videoY'], resolve);
+const GoodsDetailVideoZ = resolve => require(['@/components/GoodsDetail_videoZ'], resolve);
+
 const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
 const Order = resolve => require(['@/components/Order'], resolve);
 const Pay = resolve => require(['@/components/Pay'], resolve);
@@ -25,17 +31,17 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/', // 首页
+      path: '/', // 首页 yy
       name: 'Index',
       component: Index
     },
     {
-      path: '/Login', // 登录
+      path: '/Login', // 登录 yy
       name: 'Login',
       component: Login
     },
     {
-      path: '/SignUp', // 注册
+      path: '/SignUp', // 注册 yy
       name: 'SignUp',
       component: SignUp,
       children: [
@@ -61,15 +67,40 @@ export default new Router({
         }
       ]
     },
+    // {
+    //   path: '/goodsList', // 商品列表
+    //   name: 'GoodsList',
+    //   component: GoodsList
+    // },
     {
-      path: '/goodsList', // 商品列表
-      name: 'GoodsList',
-      component: GoodsList
+      path: '/goodsDetailPdf', // 商品详情 yy
+      name: 'GoodsDetail',
+      component: GoodsDetailPdf
     },
     {
-      path: '/goodsDetail', // 商品详情
-      name: 'GoodsDetail',
-      component: GoodsDetail
+      path: '/goodsDetailAudioZ', // 商品详情 yy
+      name: 'AudioZ',
+      component: GoodsDetailAudioZ
+    },
+    {
+      path: '/goodsDetailAudioY', // 商品详情 yy
+      name: 'AudioY',
+      component: GoodsDetailAudioY
+    },
+    {
+      path: '/goodsDetailVideoY', // 商品详情 yy
+      name: 'VideoY',
+      component: GoodsDetailVideoY
+    },
+    {
+      path: '/goodsDetailVideoZ', // 商品详情 yy
+      name: 'VideoZ',
+      component: GoodsDetailVideoZ
+    },
+    {
+      path: '/goodsDetailPicture', // 商品详情 yy
+      name: 'Picture',
+      component: GoodsDetailPicture
     },
     {
       path: '/shoppingCart', // 商品详情
@@ -77,17 +108,17 @@ export default new Router({
       component: ShoppingCart
     },
     {
-      path: '/order', // 订单页面
+      path: '/order', // 订单页面 yy
       name: 'Order',
       component: Order
     },
     {
-      path: '/pay', // 支付页面
+      path: '/pay', // 支付页面 yy
       name: 'Pay',
       component: Pay
     },
     {
-      path: '/payDone', // 支付成功页面
+      path: '/payDone', // 支付成功页面 yy
       name: 'PayDone',
       component: PayDone
     },
@@ -104,7 +135,7 @@ export default new Router({
         {
           path: '/',
           name: 'HomeIndex',
-          component: MyOrder
+          component: MyAddress
         },
         {
           path: 'myAddress',

@@ -55,10 +55,24 @@ export const SET_GOODS_ORDER_BY = (state, data) => {
 };
 
 // 设置商品详细信息
-export const SET_GOODS_INFO = (state, data) => {
-  state.goodsInfo = data;
+export const SET_GOODS_INFOPdf = (state, data) => {
+  state.goodsInfoPdf = data;
 };
-
+export const SET_GOODS_INFOPicture = (state, data) => {
+  state.goodsInfoPicture = data;
+};
+export const SET_GOODS_INFOAudioZ = (state, data) => {
+  state.goodsInfoAudioZ = data;
+};
+export const SET_GOODS_INFOAudioY = (state, data) => {
+  state.goodsInfoAudioY = data;
+};
+export const SET_GOODS_INFOVideoY = (state, data) => {
+  state.goodsInfoVideoY = data;
+};
+export const SET_GOODS_INFOVideoZ = (state, data) => {
+  state.goodsInfoVideoZ = data;
+};
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
   const item = {

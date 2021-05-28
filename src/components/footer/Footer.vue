@@ -5,15 +5,15 @@
       <div class="icon-row">
         <div class="footer-icon">
           <h5 class="footer-icon-child"></h5>
-          <span class="footer-icon-text">品类齐全，轻松购物</span>
+          <span class="footer-icon-text">功能齐全，包你满意</span>
         </div>
         <div class="footer-icon">
           <h5 class="footer-icon-child footer-icon-child-2"></h5>
-          <span class="footer-icon-text">多仓直发，极速配送</span>
+          <span class="footer-icon-text">在线压缩，快人一步</span>
         </div>
         <div class="footer-icon">
           <h5 class="footer-icon-child footer-icon-child-3"></h5>
-          <span class="footer-icon-text">正品行货，精致服务</span>
+          <span class="footer-icon-text">优质压缩，精致服务</span>
         </div>
         <div class="footer-icon">
           <h5 class="footer-icon-child footer-icon-child-4"></h5>
@@ -40,7 +40,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="copyright">
-          <p>Copyright © 2018 by Gavin <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a> <span>本项目仅供学习参考</span></p>
+          <p>Copyright © 2021 by James <Icon type="social-github"></Icon><span>本项目仅供学习参考</span></p>
         </div>
       </div>
     </footer>
@@ -54,10 +54,10 @@ export default {
     return {
       linkItemClass: 'link-item',
       guideArr: [
-        [ '购物指南', '购物流程', '会员介绍', '生活旅行', '常见问题', '大家电', '联系客服' ],
-        [ '配送方式', '上门自提', '211限时达', '配送服务查询', '收取标准', '海外配送' ],
-        [ '支付方式', '货到付款', '在线支付', '分期付款', '邮局汇款', '公司转账' ],
-        [ '售后服务', '售后政策', '价格保护', '退款说明', '返修/退换货', '取消订单' ]
+        [ '平台指南', '用户登录', '用户注册', '用户充值', '用户历史文件查询'],
+        [ '服务', '文件压缩', '文件转换', 'PDF与照片', '视音频'],
+        [ '支付方式', '在线支付' ],
+        [ '售后服务', '售后政策', '价格保护', '退款说明', '取消订单' ]
       ],
       moreLink: [
         '关于我们', '联系我们', '联系客服', '合作招商', '商家帮助', '营销中心', '销售联盟', '校园社区', '风险监测', '隐私政策'

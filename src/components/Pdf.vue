@@ -3,7 +3,7 @@
     <div class="item-detail-show">
       <div class="item-detail-left">
         <div class="item-detail-big-img">
-          <img :src="goodsInfo.goodsImg[imgIndex]" alt="" />
+          <img :src="goodsInfoPdf.goodsImg[imgIndex]" alt="" />
         </div>
         <!-- <div class="item-detail-img-row">
           <div
@@ -20,7 +20,7 @@
         <div class="item-detail-title">
           <p>
             <!-- <span class="item-detail-express">校园配送</span> -->
-            {{ goodsInfo.title }}
+            {{ goodsInfoPdf.title }}
           </p>
         </div>
         <!-- <div class="item-detail-tag">
@@ -77,12 +77,12 @@
         <!-- 选择颜色 -->
         <div class="item-select">
           <div class="item-select-title">
-            <p>选择颜色</p>
+            <p>选择压缩率</p>
           </div>
           <div class="item-select-column">
             <div
               class="item-select-row"
-              v-for="(items, index) in goodsInfo.setMeal"
+              v-for="(items, index) in goodsInfoPdf.setMeal"
               :key="index"
             >
               <div
@@ -91,8 +91,7 @@
                 :key="index1"
                 @click="select(index, index1)"
                 :class="{
-                  'item-select-box-active':
-                    index * 3 + index1 === selectBoxIndex,
+                  'item-select-box-active': index1 === selectBoxIndex,
                 }"
               >
                 <div class="item-select-img">
@@ -129,7 +128,7 @@
               ref="upload"
               :before-upload="onBefore"
               :on-success="handleSuccess"
-              action="http://127.0.0.1:81/upload"
+              action="http://47.116.142.93:81/upload"
               :headers="{
                 //请求头
                 token: token,
@@ -155,6 +154,9 @@ import store from "@/vuex/store";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   name: "pdfY",
+  created() {
+    this.loadGoodsInfoPdf();
+  },
   data() {
     return {
       token: "",
@@ -163,10 +165,11 @@ export default {
       selectBoxIndex: 0,
       imgIndex: 0,
       file: "",
+      rate: "0.25",
     };
   },
   computed: {
-    ...mapState(["goodsInfo"]),
+    ...mapState(["goodsInfoPdf"]),
     ...mapGetters(["cookies"]),
     // hirePurchase() {
     //   const three = (this.price * this.count) / 3;
@@ -197,12 +200,24 @@ export default {
     //   ];
     // },
   },
+
   methods: {
-    ...mapActions(["addShoppingCart"]),
+    ...mapActions(["addShoppingCart", "loadGoodsInfoPdf"]),
 
     select(index1, index2) {
-      this.selectBoxIndex = index1 * 3 + index2;
-      this.price = this.goodsInfo.setMeal[index1][index2].price;
+      console.log(index1);
+      console.log(index2);
+      this.selectBoxIndex = index2;
+
+      if (index2 == 0) {
+        this.rate = 0.25;
+      } else if (index2 == 1) {
+        this.rate = 1;
+      } else if (index2 == 2) {
+        this.rate = "low";
+      }
+      // this.selectBoxIndex = index1 * 3 + index2;
+      // this.price = this.goodsInfo.setMeal[index1][index2].price;
     },
     showBigImg(index) {
       this.imgIndex = index;
@@ -232,6 +247,7 @@ export default {
         email: this.getCookie("email"),
         goodsId: 3,
         file: this.file.message,
+        rate: this.rate,
       };
       this.$http
         .post("orders", order, { headers: { token: this.getCookie("token") } })
@@ -240,6 +256,9 @@ export default {
           if (response.status == 200) {
             // console.log("response.data");
             // this.$router.push("/pay");
+            setTimeout(() => {
+              this.$Message.success("文件转换成功");
+            }, 3000);
           } else if (response.status == 401) {
           }
         });
@@ -293,12 +312,18 @@ export default {
         .get(
           "download?file=" +
             this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
-            "_compressed.pdf",
+            "_operated" +
+            this.rate +
+            ".pdf",
           { headers: { token: this.getCookie("token") }, responseType: "blob" }
         )
         .then((res) => {
           console.log(res);
           this.download(res.data);
+          setTimeout(() => {
+            this.$router.go(0)
+            
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);
@@ -320,7 +345,9 @@ export default {
       link.setAttribute(
         "download",
         this.file.message.substring(0, this.file.message.lastIndexOf(".")) +
-          "_compressed.pdf"
+          "_operated" +
+          this.rate +
+          ".pdf"
       );
 
       document.body.appendChild(link);
@@ -331,7 +358,7 @@ export default {
   mounted() {
     const father = this;
     setTimeout(() => {
-      father.price = father.goodsInfo.setMeal[0][0].price || 0;
+      father.price = father.goodsInfoPdf.setMeal[0][0].price || 0;
     }, 300);
     var arr,
       reg = new RegExp("(^| )" + "token" + "=([^;]*)(;|$)");

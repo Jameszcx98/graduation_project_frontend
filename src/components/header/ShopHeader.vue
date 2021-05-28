@@ -7,8 +7,8 @@
           <i class="fa fa-fire"></i>
         </div>
         <div class="shop-title-content">
-          <p><router-link to="/merchant">{{ shopIntro.shopName }}</router-link></p>
-          <p><router-link to="/merchant">{{ shopIntro.slogen }}</router-link></p>
+          <p>{{ shopIntro.shopName }}</p>
+          <p>{{ shopIntro.slogen }}</p>
         </div>
       </div>
       <div class="shop-another-item">
@@ -32,20 +32,20 @@ export default {
   data () {
     return {
       shopIntro: {
-        shopName: 'Gavin Shop',
+        shopName: '在线文件格式转换与压缩平台',
         slogen: 'The Best Thing For You',
         showGoods: [
           {
             img: 'static/img/goodsList/item-show-1.jpg',
-            intro: [ '全身磨砂', '防指纹' ]
+            intro: [ '在线压缩', '快速出结果' ]
           },
           {
             img: 'static/img/goodsList/item-show-2.jpg',
-            intro: [ '环保PP材质', '不发黄' ]
+            intro: [ '支持多种格式']
           },
           {
             img: 'static/img/goodsList/item-show-3.jpg',
-            intro: [ '0.4mm纤细', '纤薄手感' ]
+            intro: [ '多种服务', '包您满意' ]
           }
         ]
       }
